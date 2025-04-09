@@ -1,0 +1,11 @@
+### Создание пользователя
+POST http://localhost:8000/users/
+Content-Type: application/json
+
+{
+  "tg_id": 12345678,
+  "name": "TestUser"
+}
+
+### Получение созданного пользователя (для проверки)
+GET http://localhost:8000/users/12345678
