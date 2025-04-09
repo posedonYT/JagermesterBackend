@@ -6,7 +6,7 @@ import multiprocessing
 
 
 def run_api():
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="https://jagermesterbackend.onrender.com", port=4000)
 
 
 async def run_bot():
