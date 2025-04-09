@@ -3,7 +3,8 @@ import asyncio
 from bot import dp, bot
 from api import app
 import multiprocessing
-
+import signal
+import sys
 
 def run_api():
     uvicorn.run(app, host='176.113.82.88', port=8000)
@@ -17,6 +18,12 @@ async def run_bot():
 def bot_process_func():
     asyncio.run(run_bot())
 
+def signal_handler(sig, frame):
+    print("\nЗавершение процессов...")
+    api_process.terminate()
+    bot_process.terminate()
+    sys.exit(0)
+
 
 if __name__ == "__main__":
     # Запускаем API и бота в разных процессах
@@ -26,5 +33,12 @@ if __name__ == "__main__":
     api_process.start()
     bot_process.start()
 
-    api_process.join()
-    bot_process.join()
+    signal.signal(signal.SIGINT, signal_handler)
+
+    try:
+        api_process.join()
+        bot_process.join()
+    except KeyboardInterrupt:
+        print("\nПрерывание пользователем")
+        api_process.terminate()
+        bot_process.terminate()
