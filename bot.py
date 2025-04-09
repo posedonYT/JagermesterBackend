@@ -5,12 +5,6 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from config import TOKEN, WEBAPP_URL
 import logging
 
-async def main():
-    await dp.start_polling(bot)
-
-if __name__ == "__main__":
-    asyncio.run(main())
-
 # Проверка наличия токена и URL
 if not TOKEN:
     raise ValueError("No TOKEN provided in .env file")
