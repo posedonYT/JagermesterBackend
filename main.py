@@ -6,7 +6,7 @@ import multiprocessing
 
 
 def run_api():
-    uvicorn.run(app, host="44.226.145.213", port=4000)
+    uvicorn.run(app)
 
 
 async def run_bot():
