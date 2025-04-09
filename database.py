@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, create_engine, BigInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import datetime
+import os
 
 Base = declarative_base()
 
@@ -20,8 +21,9 @@ class User(Base):
 
 
 # Создание движка базы данных и инициализация таблиц
-engine = create_engine("sqlite:///clicker.db")
-Base.metadata.create_all(engine)  # Убедимся, что таблицы созданы сразу
+DATABASE_URL = os.getenv("DATABASE_URL").replace("postgres://", "postgresql://", 1)
+engine = create_engine(DATABASE_URL)
+Base.metadata.create_all(engine)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
